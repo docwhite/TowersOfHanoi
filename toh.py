@@ -1,9 +1,8 @@
 import maya.cmds as cmds
 import animation as anim
-
-
 reload(anim)
-diskNumUIField = 0
+
+diskNumUIField = None
 
 def createUI():
     """
@@ -21,32 +20,96 @@ def createUI():
     if cmds.window(windowID, exists=True):
         cmds.deleteUI(windowID)
     
-    cmds.window(windowID, title='Towers Of Hanoi', sizeable=False, resizeToFitChildren=True)
-    cmds.rowColumnLayout(numberOfColumns=2, columnWidth=[(1,90),(2,80)],
-                         columnOffset=[(1,'right',5),(2,'right',5)])
+    cmds.window(windowID, title='Towers Of Hanoi', sizeable=False, width=470, rtf=True)
+
+    import os
+    #pathVar = os.path.dirname(__file__) # This stores the current working directory
+    pathVar = "C:\Github\TowersOfHanoi"
+    imagePath = pathVar+"/banner.png" # I designed a nice header for it
+
+    cmds.columnLayout()
+    cmds.image( image=imagePath )
+
+    tabs = cmds.tabLayout()
+    mainLayout = cmds.columnLayout(w=470)
     
+    cmds.columnLayout()
     cmds.separator( h=10, style='none' )
-    cmds.separator( h=10, style='none' )
-    
-    cmds.text(label='Num. of Disks:')
+
+    def displayInstructions(*pArgs):
+            """Shows in an independent window a list of instructions for the user to set things up quickly"""
+            if cmds.window( "instructions_window", exists=True ):
+                cmds.deleteUI( "instructions_window" )
+            instructions_window = cmds.window( "instructions_window", title="Instructions", s=False, mnb=False, mxb=False )
+            instructionsLayout = cmds.frameLayout( l="Instructions", collapsable=False, cl=False, mw = 10, mh=10 )
+            cmds.rowColumnLayout( nc=3, cw=[(1,20),(2,480),(3,20)], cal=[(2,"left")], parent=instructionsLayout )
+            cmds.separator( st="none" )
+            cmds.text( l="— 1. Select the numbers of disks you want to play with.\n— 2. Click 'Place Disks' first. Then you will see that the disks has been brought to scene.\n— 3. Click 'Solve it!'. A lot of keyframes will appear on your timeline. Furthermore you will be able to\nsee each movement written down if you see the Script Editor window.\n— 4. If you want to change the number of disks FIRST CLEAR the scene by pressing 'Clear All'. If\nyou skip this step you might break the program\n— 5. Once you are finished press the 'Exit' button and it will delete all the elements that have been created for you" )
+            cmds.separator( st="none" )
+            cmds.showWindow( instructions_window )
+
+    cmds.rowColumnLayout(nc=5, cw=[(1,20),(2,245),(3,10),(4,175),(5,20)], cal=[(2,"right")])
+    cmds.separator( style='none' )
+    cmds.text( l="Click at the Instructions button for a quick guide -" )
+    cmds.separator( style='none' )
+    cmds.button(l="Instructions", c=displayInstructions)
+    cmds.separator( style='none' )
+    cmds.setParent(mainLayout)
+
+    cmds.columnLayout()
+    cmds.separator( h=5, style="none" )
+    cmds.setParent(mainLayout)
+
+    cmds.columnLayout()
     global diskNumUIField
-    diskNumUIField = cmds.intField(min=2, max=12, value=3)
+    diskNumUIField = cmds.intSliderGrp( l="Number of Disks: ", v=3, cw3=[115,20,305], min=1, max=10, fmx=20, f=True )
+    cmds.setParent(mainLayout)
+
+    cmds.columnLayout()
+    cmds.separator( h=5, style="none" )
+    cmds.setParent(mainLayout)
+
+    cmds.rowColumnLayout(nc=5, cw=[(1,20),(2,212),(3,6),(4,212),(5,20)])
+    cmds.separator( style='none' )
+    cmds.button(label='Place Disks', command=placeDisks)
+    cmds.separator( style='none' )
+    cmds.button(label='Clear All', command=clearTowers)
+    cmds.separator( style='none' )
+    cmds.setParent(mainLayout)
+
+    cmds.columnLayout()
+    cmds.separator( h=3, style="none" )
+    cmds.setParent(mainLayout)
     
-    cmds.separator( h=10, style='none' ) 
-    cmds.separator( h=10, style='none' ) 
+    cmds.rowColumnLayout(nc=5, cw=[(1,20),(2,212),(3,6),(4,212),(5,20)])
+    cmds.separator( style='none' )
+    cmds.button(label='Solve it!', command=applyCallback)
+    cmds.separator( style='none' )
+    cmds.button(label='Exit', command=exitProcedure)
+    cmds.separator( style='none' )
+    cmds.setParent(mainLayout)
+
+    cmds.columnLayout()
+    cmds.separator( h=10, style="none" )
+    cmds.setParent(mainLayout)
+
+    cmds.rowColumnLayout( nc=3, cw=[(1,20),(2,430),(3,20)] )
+    cmds.separator( st="none" )
+    cmds.helpLine( bgc=[0.0,0.0,0.0] )
+    cmds.separator( st="none" )
+    cmds.setParent(mainLayout)
+
+    cmds.columnLayout()
+    cmds.separator( h=10, style="none" )
+    cmds.setParent(mainLayout)
         
-    cmds.button(label='Place Disks', w=75, command=placeDisks)
-    cmds.button(label='Clear All', w=75, command=clearTowers)
+    cmds.setParent(tabs)
     
-    cmds.separator( h=5, style='none' )
-    cmds.separator( h=5, style='none' )
-    
-    cmds.button(label='Solve it!', w=75, command=applyCallback)
-    cmds.button(label='Exit', w=75, command=exitProcedure)
-    
-    cmds.separator( h=10, style='none' )
-    cmds.separator( h=10, style='none' )
-    
+    materialsLayout = cmds.columnLayout()
+    cmds.text( l="Texico Bitches" )
+    cmds.setParent(tabs)
+
+    cmds.tabLayout(tabs,edit=True,tabLabel=((mainLayout,"Main"),(materialsLayout,"Materials")))
     cmds.showWindow()
 
 def applyCallback(*pArgs):
@@ -55,7 +118,7 @@ def applyCallback(*pArgs):
     "Solve it!" button
     """
     # Read the number of disks from the UI created before, bind it to a variable
-    NUMBEROFDISKS = (cmds.intField(diskNumUIField, q=True, value=True))
+    NUMBEROFDISKS = (cmds.intSliderGrp(diskNumUIField, q=True, value=True))
     
     # IMPORTANT! If there are no elements on pegA, don't run the solution procedure.
     if len(pegA) == 0:
@@ -170,9 +233,14 @@ def tableSetup(): #This will be called just one. At the startup.
 
     # Creating the pegs and placing them into the right place
     poleNameList = ['A', 'B', 'C']
+    colourArray = [1.0,0.0,0.0]
     for i in range(0, 3):
-        cmds.polyCylinder(n=poleNameList[i], radius=0.05, height=3.5)
+        pole = cmds.polyCylinder(n=poleNameList[i], radius=0.05, height=3.5)[0]
         cmds.move(-3+3*i,2,0) # I distribute them alongside the table
+        import materials
+        materials.applyShaderPeg(pole, colourArray)
+
+
 
 def placeDisks(pDiskNumUIField, *Args):
     """
@@ -185,7 +253,7 @@ def placeDisks(pDiskNumUIField, *Args):
           pegA[1] (2nd element) will be called 'disk2'
           pegA[2] (3rd element) will be called 'disk1'
     """
-    NUMBEROFDISKS = (cmds.intField(diskNumUIField, q=True, value=True))
+    NUMBEROFDISKS = (cmds.intSliderGrp(diskNumUIField, q=True, value=True))
     global KFTime
     
     if len(pegA) !=0:
