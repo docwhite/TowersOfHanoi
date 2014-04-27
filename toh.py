@@ -2,7 +2,12 @@ import maya.cmds as cmds
 import animation as anim
 reload(anim)
 
+
+# GLOBAL VARIABLE DECLARATIONS
 diskNumUIField = None
+colourArrayBoard = None
+colourArrayPegs = None
+colourArrayDisks = None
 
 def createUI():
     """
@@ -44,7 +49,7 @@ def createUI():
             instructionsLayout = cmds.frameLayout( l="Instructions", collapsable=False, cl=False, mw = 10, mh=10 )
             cmds.rowColumnLayout( nc=3, cw=[(1,20),(2,480),(3,20)], cal=[(2,"left")], parent=instructionsLayout )
             cmds.separator( st="none" )
-            cmds.text( l="— 1. Select the numbers of disks you want to play with.\n— 2. Click 'Place Disks' first. Then you will see that the disks has been brought to scene.\n— 3. Click 'Solve it!'. A lot of keyframes will appear on your timeline. Furthermore you will be able to\nsee each movement written down if you see the Script Editor window.\n— 4. If you want to change the number of disks FIRST CLEAR the scene by pressing 'Clear All'. If\nyou skip this step you might break the program\n— 5. Once you are finished press the 'Exit' button and it will delete all the elements that have been created for you" )
+            cmds.text( l="— 1. Select the numbers of disks you want to play with.\n— 2. Click 'Place Disks' first. Then you will see that the disks has been brought to scene.\n— 3. Click 'Solve it!'. A lot of keyframes will appear on your timeline. Furthermore you will be able to\nsee each movement written down if you see the Script Editor window.\n— 4. If you want to change the number of disks FIRST CLEAR the scene by pressing 'Clear All'. If\nyou skip this step you might break the program\n— 5. Once you are finished press the 'Exit' button and it will delete all the elements that\nhave been created for you" )
             cmds.separator( st="none" )
             cmds.showWindow( instructions_window )
 
@@ -106,11 +111,23 @@ def createUI():
     cmds.setParent(tabs)
     
     materialsLayout = cmds.columnLayout()
-    cmds.text( l="Texico Bitches" )
+
+    cmds.columnLayout()
+    cmds.separator( h=35, style="none" )
+    cmds.colorSliderGrp( "rgb_board", l="Board: ", rgb=(0.430,0.230,0.11), cw3=[52,30,368], ann="Board colour." )
+    cmds.separator( st="none", h=10 )
+    cmds.colorSliderGrp( "rgb_pegs", l="Pegs: ", rgb=(0.6,0.6,0.6), cw3=[52,30,368], ann="Pegs colour." )
+    cmds.separator( st="none", h=10 )
+    cmds.colorSliderGrp( "rgb_disks", l="Disks: ", rgb=(1.0,0.0,0.0), cw3=[52,30,368], ann="Disks colour." )
+    cmds.setParent(materialsLayout)
+    
     cmds.setParent(tabs)
+
+
 
     cmds.tabLayout(tabs,edit=True,tabLabel=((mainLayout,"Main"),(materialsLayout,"Materials")))
     cmds.showWindow()
+
 
 def applyCallback(*pArgs):
     """
@@ -119,7 +136,7 @@ def applyCallback(*pArgs):
     """
     # Read the number of disks from the UI created before, bind it to a variable
     NUMBEROFDISKS = (cmds.intSliderGrp(diskNumUIField, q=True, value=True))
-    
+
     # IMPORTANT! If there are no elements on pegA, don't run the solution procedure.
     if len(pegA) == 0:
         if cmds.window('warningWindow', exists=True):
@@ -222,14 +239,23 @@ def tableSetup(): #This will be called just one. At the startup.
     pMiddleHigh = positionList[4]
     pRightHigh = positionList[5]
 
+    global colourArrayBoard, colourArrayPegs, colourArrayDisks
+    colourArrayBoard = cmds.colorSliderGrp("rgb_board", q=True, rgb=True)
+    colourArrayPegs = cmds.colorSliderGrp("rgb_pegs", q=True, rgb=True)
+    colourArrayDisks = cmds.colorSliderGrp("rgb_disks", q=True, rgb=True)
+
     # Creating lists to put the disks into
     pegA = []
     pegB = []
     pegC = []
 
     # Creating the table
-    cmds.polyCube(n='base', w=10, h=0.5, d=4)
+    
+    board = cmds.polyCube(n='base', w=10, h=0.5, d=4)[0]
     cmds.move(0,0.25,0)
+    import materials
+    reload(materials)
+    materials.applyShaderBoard(board, colourArrayBoard)
 
     # Creating the pegs and placing them into the right place
     poleNameList = ['A', 'B', 'C']
@@ -238,9 +264,8 @@ def tableSetup(): #This will be called just one. At the startup.
         pole = cmds.polyCylinder(n=poleNameList[i], radius=0.05, height=3.5)[0]
         cmds.move(-3+3*i,2,0) # I distribute them alongside the table
         import materials
-        materials.applyShaderPeg(pole, colourArray)
-
-
+        reload(materials)
+        materials.applyShaderPeg(pole, colourArrayPegs)
 
 def placeDisks(pDiskNumUIField, *Args):
     """
@@ -253,6 +278,10 @@ def placeDisks(pDiskNumUIField, *Args):
           pegA[1] (2nd element) will be called 'disk2'
           pegA[2] (3rd element) will be called 'disk1'
     """
+
+    # Creates board and pegs with their relative materials.
+    tableSetup() 
+
     NUMBEROFDISKS = (cmds.intSliderGrp(diskNumUIField, q=True, value=True))
     global KFTime
     
@@ -264,9 +293,13 @@ def placeDisks(pDiskNumUIField, *Args):
     while j > 0:
         # Records the disks to the pegA list. Will look like "disk3 (bottom/largest)
         # disk2 (middle/medium), disk1 (top/smallest)"...
-        pegA.append(cmds.polyCylinder(n='disk'+`j`, height=0.2, radius=1.5-(0.1*it))[0])
+        disk = cmds.polyCylinder(n='disk'+`j`, height=0.2, radius=1.5-(0.1*it))[0]
+        pegA.append(disk)
         cmds.xform(t=pLeft)
         cmds.xform(t=[0,0.6+(NUMBEROFDISKS-j)*0.2,0], r=True)
+        import materials
+        reload(materials)
+        materials.applyShaderDisk(disk, colourArrayDisks)
         print pegA[it], 'has been created and placed in pegA'
         anim.setKeyframeToDisk(pegA[it], KFTime)
         it = it + 1
@@ -275,6 +308,24 @@ def placeDisks(pDiskNumUIField, *Args):
     print 'The pegA list contains: ', pegA
 
 def towersOfHanoi(diskNum, A, B, C, strA, strB, strC, pSource, pAuxiliary, pDestination, pSourceHigh, pAuxiliaryHigh, pDestinationHigh):
+    """
+    The recursion is done in this procedure. The disks that have been created in the list will be manipulated through
+    transform commands. We will be moving always the upper disk X[len(X)-1] of the stack.
+
+    Keyword arguments:
+    diskNum:  (integer) Number of disks we play with.
+    A:        (list) Contains all the disks which act as source stack (we will grab one disk from this stack...).
+    B:        (list) Contains all the disks which act as auxiliary stack.
+    C:        (list) Contains all the disks which act as destination stack (... we will place it in the this stack).
+    strA:     (string) Contains 'pegA', 'pegB' or 'pegC', it is useful to know which one of these is acting as SOURCE.
+    strB:     (string) Contains 'pegA', 'pegB' or 'pegC', it is useful to know which one of these is acting as AUXILIARY.
+    strC:     (string) Contains 'pegA', 'pegB' or 'pegC', it is useful to know which one of these is acting as DESTINATION.
+    pSource:      (3-int array) Contains the absolute position in WORLD-SPACE for the SOURCE peg.
+    pAuxiliary:   (3-int array) Contains the absolute position in WORLD-SPACE for the AUXILIARY peg.
+    pDestination: (3-int array) Contains the absolute position in WORLD-SPACE for the DESTINATION peg.
+    pSourceHigh:  (3-int array) Contains the absolute position in WORLD-SPACE for the SOURCE peg.
+
+    """
     global KFTime
     if diskNum == 1:
         # Move from Source to Destination
@@ -331,5 +382,14 @@ def towersOfHanoi(diskNum, A, B, C, strA, strB, strC, pSource, pAuxiliary, pDest
                       pAuxiliaryHigh, pSourceHigh, pDestinationHigh)
 
 KFTime = 1
-tableSetup()
+
+
+
+
+
+
+
+
+
+
 createUI()
