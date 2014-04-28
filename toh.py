@@ -1,3 +1,4 @@
+# coding: utf-8
 import maya.cmds as cmds
 import animation as anim
 reload(anim)
@@ -255,6 +256,7 @@ def exitProcedure( *pArgs ):
     for item in superList:
         cmds.select( item )
         cmds.delete()
+    cmds.deleteUI( windowID, window=True )
 
 def tableSetup(): #This will be called just one. At the startup.
     """
