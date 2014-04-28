@@ -24,9 +24,9 @@ def createUI():
 
     # Header image for the interface.
     import os
-    #pathVar = os.path.dirname(__file__) # This stores the current working directory
-    pathVar = 'C:\Github\TowersOfHanoi'
+    pathVar = os.path.dirname(__file__) # This stores the current working directory
     imagePath = pathVar+'/banner.png'
+    print imagePath
     cmds.columnLayout()
     cmds.image( image=imagePath )
 
