@@ -88,7 +88,7 @@ def createUI():
     
     cmds.rowColumnLayout(nc=5, cw=[(1,20),(2,212),(3,6),(4,212),(5,20)])
     cmds.separator( style='none' )
-    cmds.button(label='Solve it!', command=applyCallback)
+    cmds.button(label='Solve it!', command=solvePuzzle)
     cmds.separator( style='none' )
     cmds.button(label='Exit', command=exitProcedure)
     cmds.separator( style='none' )
@@ -129,7 +129,7 @@ def createUI():
     cmds.showWindow()
 
 
-def applyCallback(*pArgs):
+def solvePuzzle(*pArgs):
     """
     Will collect all the queried fields and pass the information. Defines the trigger action for the
     "Solve it!" button
