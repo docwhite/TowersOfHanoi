@@ -3,6 +3,8 @@ Towers Of Hanoi
 
 Puzzle solver. To use in Maya, written in Python.
 
+![](https://github.com/docwhite/TowersOfHanoi/raw/master/images/ui.png)
+
 ## What is the Towers Of Hanoi Puzzle?
 *(...extracted from Wikipedia)* The Tower of Hanoi is a mathematical game or puzzle. It consists of three rods, and a number of disks of different sizes which can slide onto any rod. The puzzle starts with the disks in a neat stack in ascending order of size on one rod, the smallest at the top, thus making a conical shape.
 
