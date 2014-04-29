@@ -40,6 +40,6 @@ If you are interested on how I used recursion in order to get this thing working
 
 Feel free as well to read the documentation HTML files in the `documentation` folder. If you are interested in seeing the flowchart of my script here I made an image to illustrate it:
 
-*[image yet to be uploaded]*
+![](https://github.com/docwhite/TowersOfHanoi/raw/master/images/flowchart.png)
 
 *Ramon Blanquer (NCCA) ©*
