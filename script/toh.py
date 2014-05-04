@@ -54,7 +54,7 @@ def createUI():
         instructionsLayout = cmds.frameLayout( l="Instructions", collapsable=False, cl=False, mw = 10, mh=10 )
         cmds.rowColumnLayout( nc=3, cw=[(1,20),(2,480),(3,20)], cal=[(2,"left")], parent=instructionsLayout )
         cmds.separator( st='none' )
-        cmds.text( l="— 1. Select the numbers of disks you want to play with.\n— 2. Click 'Place Disks' first. Then youwill see that the disks has been brought to scene.\n— 3. Click 'Solve it!'. A lot of keyframes will appear on your timeline. Furthermore you will be able to\nsee each movement written down if you see the Script Editor window.\n— 4. If you want to change the number of disks FIRST CLEAR the scene by pressing 'Clear All'. If\nyou skip this step you might crash the program.\n— 5. Once you are finished press the 'Exit' button and it will delete all the elements that\nhave been created for you" )
+        cmds.text( l="- 1. Select the numbers of disks you want to play with.\n- 2. Click 'Place Disks' first. Then youwill see that the disks has been brought to scene.\n- 3. Click 'Solve it!'. A lot of keyframes will appear on your timeline. Furthermore you will be able to\nsee each movement written down if you see the Script Editor window.\n- 4. If you want to change the number of disks FIRST CLEAR the scene by pressing 'Clear All'. If\nyou skip this step you might crash the program.\n- 5. Once you are finished press the 'Exit' button and it will delete all the elements that\nhave been created for you" )
         cmds.separator( st='none' )
         cmds.showWindow( instructions_window )
 
