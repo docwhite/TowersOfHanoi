@@ -10,7 +10,7 @@
 
     // 
 
-    Start Up Script                              <startScript.py>
+    Start Up Script                              <startup.py>
 
 In order to get it running easily I suggest following these simple steps:
 
