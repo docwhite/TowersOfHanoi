@@ -8,7 +8,7 @@
     to see how it communicates with the other modules please take a look at the flowchart included in 
     the readme file or in the Report.
 """
-#import maya.cmds as cmds
+import maya.cmds as cmds
 
 def applyShaderPeg(object, colourArray):
     """

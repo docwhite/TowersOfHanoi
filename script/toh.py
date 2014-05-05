@@ -6,8 +6,7 @@
 
     This is the module that is first called. It creates the UI and initialises all the variables that need to be used. It is responsible for the buttons and their actions, placing the geometry, clearing the scene, and it is also where the recursion takes place. It has two dependent modules, 'materials' and 'animation'. To see how they are connected I refer to the flowchart I created in the readme file or the Report document itself.
 """
-# coding: utf-8
-#import maya.cmds as cmds
+import maya.cmds as cmds
 import animation as anim
 
 def createUI():

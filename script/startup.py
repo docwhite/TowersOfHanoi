@@ -19,7 +19,7 @@ In order to get it running easily I suggest following these simple steps:
         2. Click on the "Instructions" button to get started by reading first a quick guide.
 """
 
-#import maya.cmds as cmds
+import maya.cmds as cmds
 
 class findPathWindow:
     """
@@ -110,7 +110,7 @@ try: # If a gui is already open close it
 except:
     pass
 
-#import maya.cmds as cmds
+import maya.cmds as cmds
 import sys
 global superList
 superList = []
