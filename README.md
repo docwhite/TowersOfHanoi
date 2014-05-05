@@ -13,7 +13,7 @@ The objective of the puzzle is to move the entire stack to another rod, obeying 
 * Each move consists of taking the upper disk from one of the stacks and placing it on top of another stack i.e. a disk can only be moved if it is the uppermost disk on a stack.
 * No disk may be placed on top of a smaller disk.
 
-With three disks, the puzzle can be solved in seven moves. The minimum number of moves required to solve a Tower of Hanoi puzzle is `2n - 1`, where n is the number of disks.
+With three disks, the puzzle can be solved in seven moves. The minimum number of moves required to solve a Tower of Hanoi puzzle is `2^(n) - 1` (two power n minus one), where n is the number of disks.
 
 ## Installation
 First of all, if you are not familiarized with git and you don't know how the cloning stuff works, just keep it simple:
@@ -43,5 +43,13 @@ If you are interested on how I used recursion in order to get this thing working
 Feel free as well to read the documentation HTML files in the `documentation` folder. If you are interested in seeing the flowchart of my script here I made an image to illustrate it:
 
 ![](https://github.com/docwhite/TowersOfHanoi/raw/master/images/flowchart.png)
+
+This flowchart is explained in detail in the .pdf file called `Report.pdf`. There is also the .docx version of it.
+
+This is a batch render I exported from Maya which shows what the animation would look like for a 3 disk attempt. I also include the rendered images in the sub-folder `images/sequence`.
+
+![](https://github.com/docwhite/TowersOfHanoi/raw/master/images/sequence.png)
+
+This is it. If you have any specific question contact me *blanquer.ramon@gmail.com*, thanks for spending some time reading this.
 
 *Ramon Blanquer (NCCA) ©*
