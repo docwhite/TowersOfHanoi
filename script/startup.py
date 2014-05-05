@@ -19,7 +19,8 @@ In order to get it running easily I suggest following these simple steps:
         2. Click on the "Instructions" button to get started by reading first a quick guide.
 """
 
-import maya.cmds as cmds
+#import maya.cmds as cmds
+
 class findPathWindow:
     """
     This class is responsible for managing the module-fininding window. This window is run when the script can't find the
@@ -109,7 +110,9 @@ try: # If a gui is already open close it
 except:
     pass
 
-import maya.cmds as cmds
+#import maya.cmds as cmds
 import sys
+global superList
+superList = []
 load = findPathWindow()
 cmds.showWindow(load.loadDirWin)

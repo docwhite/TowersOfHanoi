@@ -1,14 +1,26 @@
-import maya.cmds as cmds
+#!/usr/bin/env python
+# coding: utf-8
+
+"""
+    Materials Module                              <materials.py>
+
+    Responsible for creating and applying correctly the materials to the objects in the scene. In order
+    to see how it communicates with the other modules please take a look at the flowchart included in 
+    the readme file or in the Report.
+"""
+#import maya.cmds as cmds
 
 def applyShaderPeg(object, colourArray):
     """
-    Applies a lambert shader with the diffuse colour specified in the argument 'colourArray' to the Peg objects.
+    Applies a lambert shader with the diffuse colour specified in the argument 'colourArray' to the Peg 
+    objects.
 
     Keyword arguments:
     object:       Geometry which the material is applied to.
     colourArray:  RGB value for the diffuse channel of the lambert.
     
-    On Exit:  Creates the lambert and its shading group, applies it to the geometry, and returns the shading objects that 
+    On Exit:  Creates the lambert and its shading group, applies it to the geometry, and returns the 
+    shading objects that 
               has been created so that we can store them later on to the superList array.
 
     """
@@ -22,13 +34,15 @@ def applyShaderPeg(object, colourArray):
 
 def applyShaderDisk(object, colourArray):
     """
-    Applies a lambert shader with the diffuse colour specified in the argument 'colourArray' to the Disk objects.
+    Applies a lambert shader with the diffuse colour specified in the argument 'colourArray' to the Disk 
+    objects.
 
     Keyword arguments:
     object:       Geometry which the material is applied to.
     colourArray:  RGB value for the diffuse channel of the lambert.
     
-    On Exit:  Creates the lambert and its shading group, applies it to the geometry, and returns the shading objects that 
+    On Exit:  Creates the lambert and its shading group, applies it to the geometry, and returns the 
+    shading objects that 
               has been created so that we can store them later on to the superList array.
 
     """
@@ -42,13 +56,15 @@ def applyShaderDisk(object, colourArray):
 
 def applyShaderBoard(object, colourArray):
     """
-    Applies a lambert shader with the diffuse colour specified in the argument 'colourArray' to the Board object.
+    Applies a lambert shader with the diffuse colour specified in the argument 'colourArray' to the 
+    Board object.
 
     Keyword arguments:
     object:       Geometry which the material is applied to.
     colourArray:  RGB value for the diffuse channel of the lambert.
     
-    On Exit:  Creates the lambert and its shading group, applies it to the geometry, and returns the shading objects that 
+    On Exit:  Creates the lambert and its shading group, applies it to the geometry, and returns the 
+    shading objects that 
               has been created so that we can store them later on to the superList array.
 
     """
