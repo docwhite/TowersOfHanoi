@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-""" DISCLAIMER: This startScript.py file is adapted from Jared Auty's scripting project "L-System Plant Generator". All the
+""" Source from Jared Auty starts here, ...
+
+    DISCLAIMER: This startScript.py file is adapted from Jared Auty's scripting project "L-System Plant Generator". All the
     copyrights belong to him, just on this file, of course. I just tweaked some procedures to get them working in my script.
      
     You can access his source code here: 
@@ -116,3 +118,7 @@ global superList
 superList = []
 load = findPathWindow()
 cmds.showWindow(load.loadDirWin)
+
+"""
+    Source from Jared Auty ends here.
+"""
