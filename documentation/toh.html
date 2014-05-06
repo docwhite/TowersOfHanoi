@@ -1,0 +1,89 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module toh</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>toh</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/doc/Github/TowersOfHanoi/script/toh.py">/home/doc/Github/TowersOfHanoi/script/toh.py</a></font></td></tr></table>
+    <p><tt>Main&nbsp;Module&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;toh.py&gt;<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;the&nbsp;module&nbsp;that&nbsp;is&nbsp;first&nbsp;called.&nbsp;It&nbsp;creates&nbsp;the&nbsp;UI&nbsp;and&nbsp;initialises&nbsp;all&nbsp;the&nbsp;variables&nbsp;that&nbsp;need&nbsp;to&nbsp;be&nbsp;used.&nbsp;It&nbsp;is&nbsp;responsible&nbsp;for&nbsp;the&nbsp;buttons&nbsp;and&nbsp;their&nbsp;actions,&nbsp;placing&nbsp;the&nbsp;geometry,&nbsp;clearing&nbsp;the&nbsp;scene,&nbsp;and&nbsp;it&nbsp;is&nbsp;also&nbsp;where&nbsp;the&nbsp;recursion&nbsp;takes&nbsp;place.&nbsp;It&nbsp;has&nbsp;two&nbsp;dependent&nbsp;modules,&nbsp;'materials'&nbsp;and&nbsp;'animation'.&nbsp;To&nbsp;see&nbsp;how&nbsp;they&nbsp;are&nbsp;connected&nbsp;I&nbsp;refer&nbsp;to&nbsp;the&nbsp;flowchart&nbsp;I&nbsp;created&nbsp;in&nbsp;the&nbsp;readme&nbsp;file&nbsp;or&nbsp;the&nbsp;Report&nbsp;document&nbsp;itself.</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="animation.html">animation</a><br>
+</td><td width="25%" valign=top><a href="materials.html">materials</a><br>
+</td><td width="25%" valign=top><a href="startup.html">startup</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-clearTowers"><strong>clearTowers</strong></a>(*pArgs)</dt><dd><tt>It&nbsp;iterates&nbsp;through&nbsp;the&nbsp;list&nbsp;that&nbsp;contains&nbsp;the&nbsp;DISKS&nbsp;(geometry)&nbsp;and&nbsp;the&nbsp;SHADERS&nbsp;which&nbsp;have&nbsp;been&nbsp;applied&nbsp;to&nbsp;them,&nbsp;then<br>
+removes&nbsp;them&nbsp;so&nbsp;that&nbsp;the&nbsp;user&nbsp;can&nbsp;place&nbsp;disks&nbsp;back&nbsp;again.<br>
+&nbsp;<br>
+Keyword&nbsp;arguments:<br>
+NONE<br>
+&nbsp;<br>
+On&nbsp;Exit:&nbsp;&nbsp;Disks&nbsp;and&nbsp;shaders&nbsp;are&nbsp;removed.&nbsp;Lists&nbsp;are&nbsp;reset.</tt></dd></dl>
+ <dl><dt><a name="-createUI"><strong>createUI</strong></a>()</dt><dd><tt>Creates&nbsp;a&nbsp;user&nbsp;graphics&nbsp;interface.<br>
+&nbsp;<br>
+Keyword&nbsp;arguments:<br>
+NONE<br>
+&nbsp;<br>
+On&nbsp;Exit:&nbsp;&nbsp;All&nbsp;the&nbsp;functions&nbsp;will&nbsp;have&nbsp;been&nbsp;passed&nbsp;properly&nbsp;and&nbsp;the&nbsp;GUI&nbsp;will&nbsp;be&nbsp;initialised.</tt></dd></dl>
+ <dl><dt><a name="-exitProcedure"><strong>exitProcedure</strong></a>(*pArgs)</dt><dd><tt>Delets&nbsp;everything&nbsp;which&nbsp;has&nbsp;been&nbsp;set&nbsp;up.&nbsp;It&nbsp;iterates&nbsp;through&nbsp;the&nbsp;list&nbsp;which&nbsp;contains&nbsp;every&nbsp;single&nbsp;element&nbsp;that&nbsp;has&nbsp;been<br>
+created&nbsp;by&nbsp;this&nbsp;script&nbsp;and&nbsp;removes&nbsp;it&nbsp;from&nbsp;the&nbsp;scene.<br>
+&nbsp;<br>
+Keyword&nbsp;arguments:<br>
+NONE<br>
+&nbsp;<br>
+On&nbsp;Exit:&nbsp;&nbsp;All&nbsp;the&nbsp;elements&nbsp;are&nbsp;removed.&nbsp;The&nbsp;script&nbsp;quits.</tt></dd></dl>
+ <dl><dt><a name="-placeDisks"><strong>placeDisks</strong></a>(pDiskNumUIField, *Args)</dt><dd><tt>Will&nbsp;place&nbsp;the&nbsp;initial&nbsp;disks&nbsp;into&nbsp;the&nbsp;peg&nbsp;A.&nbsp;But&nbsp;it&nbsp;will&nbsp;check&nbsp;if&nbsp;there&nbsp;are&nbsp;any&nbsp;before,&nbsp;in&nbsp;case&nbsp;<br>
+that&nbsp;there&nbsp;were&nbsp;some,&nbsp;it&nbsp;will&nbsp;delete&nbsp;them&nbsp;(calling&nbsp;the&nbsp;clearTowers&nbsp;procedure).&nbsp;The&nbsp;created&nbsp;ob-<br>
+jects&nbsp;will&nbsp;be&nbsp;placed&nbsp;in&nbsp;the&nbsp;pegA&nbsp;list,&nbsp;so&nbsp;that&nbsp;we&nbsp;can&nbsp;access&nbsp;each&nbsp;disk&nbsp;using&nbsp;[]&nbsp;(pegA[0]&nbsp;would<br>
+be&nbsp;the&nbsp;bottom&nbsp;larger&nbsp;peg[1]&nbsp;the&nbsp;one&nbsp;one&nbsp;step&nbsp;above,&nbsp;until&nbsp;the&nbsp;last&nbsp;one&nbsp;peg[n]&nbsp;being&nbsp;the&nbsp;smallest<br>
+and&nbsp;highest&nbsp;one.&nbsp;I&nbsp;give&nbsp;an&nbsp;example&nbsp;about&nbsp;what&nbsp;the&nbsp;pegA&nbsp;list&nbsp;would&nbsp;look&nbsp;like&nbsp;if&nbsp;we&nbsp;had&nbsp;3&nbsp;disks:&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pegA[0]&nbsp;(1st&nbsp;element)&nbsp;will&nbsp;be&nbsp;called&nbsp;'disk3'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pegA[1]&nbsp;(2nd&nbsp;element)&nbsp;will&nbsp;be&nbsp;called&nbsp;'disk2'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pegA[2]&nbsp;(3rd&nbsp;element)&nbsp;will&nbsp;be&nbsp;called&nbsp;'disk1'</tt></dd></dl>
+ <dl><dt><a name="-solvePuzzle"><strong>solvePuzzle</strong></a>(*pArgs)</dt><dd><tt>Will&nbsp;collect&nbsp;all&nbsp;the&nbsp;queried&nbsp;fields&nbsp;and&nbsp;pass&nbsp;the&nbsp;information.&nbsp;Defines&nbsp;the&nbsp;trigger&nbsp;action&nbsp;for&nbsp;the<br>
+"Solve&nbsp;it!"&nbsp;button.<br>
+&nbsp;<br>
+Keyword&nbsp;arguments:<br>
+NONE.<br>
+&nbsp;<br>
+On&nbsp;Exit:&nbsp;fields&nbsp;are&nbsp;queried&nbsp;and&nbsp;passes&nbsp;the&nbsp;information&nbsp;to&nbsp;the&nbsp;method&nbsp;call&nbsp;<a href="#-towersOfHanoi">towersOfHanoi</a>().</tt></dd></dl>
+ <dl><dt><a name="-tableSetup"><strong>tableSetup</strong></a>()</dt><dd><tt>Sets&nbsp;up&nbsp;the&nbsp;table&nbsp;board&nbsp;with&nbsp;three&nbsp;poles.&nbsp;Simple.<br>
+&nbsp;<br>
+Keyword&nbsp;arguments:<br>
+NONE<br>
+&nbsp;<br>
+On&nbsp;Exit:&nbsp;&nbsp;The&nbsp;geometry&nbsp;for&nbsp;the&nbsp;pegs&nbsp;and&nbsp;disks&nbsp;is&nbsp;created.</tt></dd></dl>
+ <dl><dt><a name="-towersOfHanoi"><strong>towersOfHanoi</strong></a>(diskNum, A, B, C, strA, strB, strC, pSource, pAuxiliary, pDestination, pSourceHigh, pAuxiliaryHigh, pDestinationHigh)</dt><dd><tt>The&nbsp;recursion&nbsp;is&nbsp;done&nbsp;in&nbsp;this&nbsp;procedure.&nbsp;The&nbsp;disks&nbsp;that&nbsp;have&nbsp;been&nbsp;created&nbsp;in&nbsp;the&nbsp;list&nbsp;will&nbsp;be&nbsp;manipulated&nbsp;through<br>
+transform&nbsp;commands.&nbsp;We&nbsp;will&nbsp;be&nbsp;moving&nbsp;always&nbsp;the&nbsp;upper&nbsp;disk&nbsp;X[len(X)-1]&nbsp;of&nbsp;the&nbsp;stack.<br>
+&nbsp;<br>
+Keyword&nbsp;arguments:<br>
+diskNum:&nbsp;&nbsp;(integer)&nbsp;Number&nbsp;of&nbsp;disks&nbsp;we&nbsp;play&nbsp;with.<br>
+A:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(list)&nbsp;Contains&nbsp;all&nbsp;the&nbsp;disks&nbsp;which&nbsp;act&nbsp;as&nbsp;source&nbsp;stack&nbsp;(we&nbsp;will&nbsp;grab&nbsp;one&nbsp;disk&nbsp;from&nbsp;this&nbsp;stack...).<br>
+B:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(list)&nbsp;Contains&nbsp;all&nbsp;the&nbsp;disks&nbsp;which&nbsp;act&nbsp;as&nbsp;auxiliary&nbsp;stack.<br>
+C:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(list)&nbsp;Contains&nbsp;all&nbsp;the&nbsp;disks&nbsp;which&nbsp;act&nbsp;as&nbsp;destination&nbsp;stack&nbsp;(...&nbsp;we&nbsp;will&nbsp;place&nbsp;it&nbsp;in&nbsp;the&nbsp;this&nbsp;stack).<br>
+strA:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(string)&nbsp;Contains&nbsp;'pegA',&nbsp;'pegB'&nbsp;or&nbsp;'pegC',&nbsp;it&nbsp;is&nbsp;useful&nbsp;to&nbsp;know&nbsp;which&nbsp;one&nbsp;of&nbsp;these&nbsp;is&nbsp;acting&nbsp;as&nbsp;SOURCE.<br>
+strB:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(string)&nbsp;Contains&nbsp;'pegA',&nbsp;'pegB'&nbsp;or&nbsp;'pegC',&nbsp;it&nbsp;is&nbsp;useful&nbsp;to&nbsp;know&nbsp;which&nbsp;one&nbsp;of&nbsp;these&nbsp;is&nbsp;acting&nbsp;as&nbsp;AUXILIARY.<br>
+strC:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(string)&nbsp;Contains&nbsp;'pegA',&nbsp;'pegB'&nbsp;or&nbsp;'pegC',&nbsp;it&nbsp;is&nbsp;useful&nbsp;to&nbsp;know&nbsp;which&nbsp;one&nbsp;of&nbsp;these&nbsp;is&nbsp;acting&nbsp;as&nbsp;DESTINATION.<br>
+pSource:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(3-int&nbsp;array)&nbsp;Contains&nbsp;the&nbsp;absolute&nbsp;position&nbsp;in&nbsp;WORLD-SPACE&nbsp;for&nbsp;the&nbsp;SOURCE&nbsp;peg.<br>
+pAuxiliary:&nbsp;&nbsp;&nbsp;(3-int&nbsp;array)&nbsp;Contains&nbsp;the&nbsp;absolute&nbsp;position&nbsp;in&nbsp;WORLD-SPACE&nbsp;for&nbsp;the&nbsp;AUXILIARY&nbsp;peg.<br>
+pDestination:&nbsp;(3-int&nbsp;array)&nbsp;Contains&nbsp;the&nbsp;absolute&nbsp;position&nbsp;in&nbsp;WORLD-SPACE&nbsp;for&nbsp;the&nbsp;DESTINATION&nbsp;peg.<br>
+pSourceHigh:&nbsp;&nbsp;(3-int&nbsp;array)&nbsp;Contains&nbsp;the&nbsp;absolute&nbsp;position&nbsp;in&nbsp;WORLD-SPACE&nbsp;for&nbsp;the&nbsp;SOURCE&nbsp;peg.</tt></dd></dl>
+</td></tr></table>
+</body></html>
